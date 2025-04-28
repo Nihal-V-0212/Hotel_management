@@ -1,0 +1,43 @@
+hotel_management_mysql/
+├── app.py             # Main Flask application
+├── requirements.txt   # Python dependencies
+├── static/
+│   └── css/
+│       └── style.css
+│   └── js/
+│       └── script.js
+└── templates/
+    ├── base.html
+    ├── login.html
+    ├── index.html     # Dashboard
+    ├── hotels/
+    │   ├── list.html
+    │   └── form.html
+    ├── rooms/
+    │   ├── list.html
+    │   └── form.html
+    ├── guests/
+    │   ├── list.html
+    │   └── form.html
+    ├── reservations/
+    │   ├── list.html
+    │   └── form.html
+    │   # Add detail.html later if needed
+    ├── payments/
+    │   ├── list.html  # Likely viewed under reservations
+    │   └── form.html  # Likely added under reservations
+    ├── staff/
+    │   ├── list.html
+    │   └── form.html
+    ├── services/
+    │   ├── list.html
+    │   └── form.html
+    ├── users/
+    │   ├── list.html
+    │   └── form.html
+    ├── includes/
+    │   └── _flash_messages.html
+    └── errors/
+        ├── 403.html
+        ├── 404.html
+        └── 500.html
