@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ action }} User{% endblock %}
+
+{% block content %}
+<h1>{{ action }} User</h1>
+
+<form method="post" class="data-form">
+    {% if action == 'Edit' %}
+        <p><strong>Editing User: {{ user_data.Username }} (ID: {{ user_data.User_ID }})</strong></p>
+    {% endif %}
+
+    <div class="form-group">
+        <label for="username">Username*</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ user_data.Username if user_data else '' }}"
+               {% if action == 'Edit' %}readonly{% else %}required{% endif %}>
+        {% if action == 'Edit' %}<small class="form-text">Username cannot be changed.</small>{% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password {% if action == 'Add' %}*{% endif %}</label>
+        <input type="password" class="form-control" id="password" name="password"
+               {% if action == 'Add' %}required{% endif %} >
+        {% if action == 'Edit' %}<small class="form-text">Leave blank to keep current password.</small>{% endif %}
+    </div>
+
+     <div class="form-group">
+        <label for="confirm_password">Confirm Password {% if action == 'Add' %}*{% endif %}</label>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+               {% if action == 'Add' %}required{% endif %}>
+         {% if action == 'Edit' %}<small class="form-text">Required only if changing password.</small>{% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="role">Role*</label>
+        <select class="form-control" id="role" name="role" required>
+             {# Define roles - adjust as needed #}
+             {% set roles = ['admin', 'staff', 'manager', 'reception'] %}
+            <option value="">-- Select Role --</option>
+             {% for r in roles %}
+             <option value="{{ r }}" {% if user_data and user_data.Role.lower() == r %}selected{% endif %}>{{ r.capitalize() }}</option>
+             {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="staff_id">Link to Staff Member (Optional)</label>
+        <select class="form-control" id="staff_id" name="staff_id">
+            <option value="">-- Select Staff --</option>
+             {% for staff_member in staff %}
+            <option value="{{ staff_member.Staff_ID }}" {% if user_data and user_data.Staff_ID == staff_member.Staff_ID %}selected{% endif %}>
+                 {{ staff_member.Name }} (ID: {{ staff_member.Staff_ID }})
+            </option>
+            {% endfor %}
+        </select>
+        <small class="form-text">Links this user account to a staff record.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ action }} User</button>
+    <a href="{{ url_for('list_users') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

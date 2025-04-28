@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Hotel Reservation System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">HotelSys</a>
+            <ul class="navbar-nav">
+                {% if g.user %}
+                    <li class="nav-item nav-user-info">Logged in as: {{ g.user.Username }} {% if g.user.staff_info %}({{ g.user.staff_info.Name }}){% endif %}</li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('list_hotels') }}">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('list_rooms') }}">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('list_guests') }}">Guests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('list_reservations') }}">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('list_staff') }}">Staff</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('list_services') }}">Services</a></li>
+                    {% if g.user and g.user.Role and g.user.Role.lower() == 'admin' %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('list_users') }}">Users</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link btn btn-sm btn-outline-light" href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container content">
+        {% include 'includes/_flash_messages.html' %}
+        {% block content %}
+        <!-- Page specific content will go here -->
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span>© {{ now.year }} Hotel Reservation System</span>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

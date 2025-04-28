@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Dashboard</h1>
+    </div>
+    <p>Welcome to the Hotel Reservation System, {{ g.user.Username }}.</p>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <h2>Total Hotels</h2>
+            <p>{{ stats.hotels }}</p>
+        </div>
+         <div class="stat-card">
+            <h2>Total Rooms</h2>
+            <p>{{ stats.rooms }}</p>
+        </div>
+        <div class="stat-card">
+            <h2>Total Guests</h2>
+            <p>{{ stats.guests }}</p>
+        </div>
+        <div class="stat-card">
+            <h2>Active Reservations</h2>
+            <p>{{ stats.active_reservations }}</p>
+            <small>(Approx. based on current date)</small>
+        </div>
+        <!-- Add more stats as needed -->
+    </div>
+
+    <div class="mt-4">
+      <h3>Quick Links</h3>
+      <a href="{{ url_for('add_reservation') }}" class="btn btn-success">Add New Reservation</a>
+      <a href="{{ url_for('add_guest') }}" class="btn btn-primary">Add New Guest</a>
+      <!-- Add other common actions -->
+    </div>
+{% endblock %}
